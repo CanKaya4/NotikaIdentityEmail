@@ -1,4 +1,10 @@
+using Microsoft.AspNetCore.Identity;
+using NotikaIdentityEmail.Context;
+using NotikaIdentityEmail.Entities;
+
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<EmailContext>();
+builder.Services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<EmailContext>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
