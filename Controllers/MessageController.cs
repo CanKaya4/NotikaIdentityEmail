@@ -23,5 +23,10 @@ namespace NotikaIdentityEmail.Controllers
             var values = await _context.Messages.Include(x=>x.Category).ToListAsync();
             return View(values);
         }
+        public async Task<IActionResult> MessageDetail()
+        {
+            var value = await _context.Messages.Where(x => x.MessageId == 1).FirstOrDefaultAsync();
+            return View(value);
+        }
     }
 }
