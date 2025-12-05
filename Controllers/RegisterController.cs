@@ -22,17 +22,20 @@ namespace NotikaIdentityEmail.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateUser(RegisterUserViewModel registerUserViewModel)
         {
+            Random rnd = new Random();
+            int code = rnd.Next(100000, 1000000);
             AppUser appUser = new AppUser()
             {
                 Name = registerUserViewModel.Name,
                 Email = registerUserViewModel.Email,
                 Surname = registerUserViewModel.Surname,
-                UserName = registerUserViewModel.UserName
+                UserName = registerUserViewModel.UserName,
+                ActivationCode = code,
             };
             var result = await _userManager.CreateAsync(appUser, registerUserViewModel.Password);
             if (result.Succeeded)
             {
-                return RedirectToAction("UserLogin", "LoginController");
+                return RedirectToAction("UserActivation","Activation");
             }
             else
             {
