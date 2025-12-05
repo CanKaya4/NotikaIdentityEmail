@@ -28,5 +28,9 @@ namespace NotikaIdentityEmail.Controllers
             var value = await _context.Messages.Where(x => x.MessageId == 1).FirstOrDefaultAsync();
             return View(value);
         }
+        public async Task<IActionResult> ComposeMessage()
+        {
+            return View();
+        }
     }
 }
