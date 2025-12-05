@@ -1,12 +1,21 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using NotikaIdentityEmail.Context;
 
 namespace NotikaIdentityEmail.Controllers
 {
     public class MessageController : Controller
     {
+        private readonly EmailContext _context;
+
+        public MessageController(EmailContext context)
+        {
+            _context = context;
+        }
+
         public IActionResult Inbox()
         {
-            return View();
+            var values = _context.Messages.ToList(); ;
+            return View(values);
         }
     }
 }
