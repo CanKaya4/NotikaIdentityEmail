@@ -1,7 +1,7 @@
 ﻿@using NotikaIdentityEmail.Helpers
 @model List<Message>
 @{
-    ViewData["Title"] = "Inbox";
+    ViewData["Title"] = "Sendbox";
     Layout = "~/Views/UserLayout/Index.cshtml";
 }
 
@@ -40,10 +40,10 @@
                                         <td class="">
                                             <label><input type="checkbox" class="i-checks"></label>
                                         </td>
-                                        <td><a href="#"></a>Gönderici <span class="label label-warning">@item.Category.CategoryName</span></td>
-                                        
-                                            <td><a href="#"><strong>Konu : @item.Subject</strong> @item.MessageDetail.KelimeBazliKisalt(40)</a></td>
-                                       
+                                        <td><a href="#"></a>Alıcı: <span class="label label-warning">@item.Category.CategoryName</span></td>
+
+                                        <td><a href="#"><strong>Konu : @item.Subject</strong> @item.MessageDetail.KelimeBazliKisalt(20)</a></td>
+
 
 
                                         <td></td>
@@ -58,4 +58,3 @@
         </div>
     </div>
 </div>
-

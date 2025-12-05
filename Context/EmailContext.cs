@@ -8,7 +8,7 @@ namespace NotikaIdentityEmail.Context
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=.;Database=NotikaEmailDb;Trusted_Connection=True;trust server certificate=true");
+            optionsBuilder.UseSqlServer("Server=localhost\\SQLEXPRESS;Database=NotikaEmailDb;Trusted_Connection=True;trust server certificate=true");
         }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Message> Messages { get; set; }

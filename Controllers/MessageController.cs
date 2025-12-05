@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using NotikaIdentityEmail.Context;
 
 namespace NotikaIdentityEmail.Controllers
@@ -12,9 +13,14 @@ namespace NotikaIdentityEmail.Controllers
             _context = context;
         }
 
-        public IActionResult Inbox()
+        public async Task<IActionResult> Inbox()
         {
-            var values = _context.Messages.ToList(); ;
+            var values = await _context.Messages.Include(x => x.Category).ToListAsync();
+            return View(values);
+        }
+        public async Task<IActionResult> Sendbox()
+        {
+            var values = await _context.Messages.Include(x=>x.Category).ToListAsync();
             return View(values);
         }
     }
