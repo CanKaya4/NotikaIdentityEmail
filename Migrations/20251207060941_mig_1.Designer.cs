@@ -12,8 +12,8 @@ using NotikaIdentityEmail.Context;
 namespace NotikaIdentityEmail.Migrations
 {
     [DbContext(typeof(EmailContext))]
-    [Migration("20251205092653_mig_2")]
-    partial class mig_2
+    [Migration("20251207060941_mig_1")]
+    partial class mig_1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

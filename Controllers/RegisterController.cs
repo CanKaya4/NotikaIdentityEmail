@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using MailKit.Net.Smtp;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using MimeKit;
 using NotikaIdentityEmail.Entities;
 using NotikaIdentityEmail.Models;
 
@@ -35,7 +37,27 @@ namespace NotikaIdentityEmail.Controllers
             var result = await _userManager.CreateAsync(appUser, registerUserViewModel.Password);
             if (result.Succeeded)
             {
-                return RedirectToAction("UserActivation","Activation");
+                MimeMessage mimeMessage = new MimeMessage();
+
+                MailboxAddress mailboxAddressFrom = new MailboxAddress("Admin", "alikaya4275@gmail.com");
+                mimeMessage.From.Add(mailboxAddressFrom);
+
+                MailboxAddress malBoxAddressTo = new MailboxAddress("User", registerUserViewModel.Email);
+                mimeMessage.To.Add(malBoxAddressTo);
+
+                var bodyBuilder = new BodyBuilder();
+                bodyBuilder.TextBody = "Hesabınızı doğrulamak için geçerli olan doğrulama kodu " + code;
+                mimeMessage.Body = bodyBuilder.ToMessageBody();
+
+                mimeMessage.Subject = "Notika Identity Aktivasyon Kodu";
+                
+                SmtpClient smtpClient = new SmtpClient();
+                smtpClient.Connect("smtp.gmail.com", 587,false);
+                smtpClient.Authenticate("alikaya4275@gmail.com", "maod kvce gblr wnib");
+                smtpClient.Send(mimeMessage);
+                smtpClient.Disconnect(true);
+
+                return RedirectToAction("UserActivation", "Activation");
             }
             else
             {
